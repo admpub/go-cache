@@ -37,6 +37,13 @@ type Cache struct {
 	// If this is confusing, see the comment at the bottom of New()
 }
 
+func (c *Cache) Close() {
+	if c.janitor == nil {
+		return
+	}
+	stopJanitor(c)
+}
+
 type cache struct {
 	defaultExpiration time.Duration
 	items             map[string]Item

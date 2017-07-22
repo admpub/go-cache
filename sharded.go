@@ -23,6 +23,13 @@ type unexportedShardedCache struct {
 	*shardedCache
 }
 
+func (c *unexportedShardedCache) Close() {
+	if c.janitor == nil {
+		return
+	}
+	stopShardedJanitor(c)
+}
+
 type shardedCache struct {
 	seed    uint32
 	m       uint32
